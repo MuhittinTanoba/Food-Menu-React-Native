@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     margin: 16,
     borderRadius: 8,
     overflow: "hidden",
-    backgroundColor: "white",
+    backgroundColor: "#ADC4CE",
     elevation: 4,
   },
   innerContainer:{
@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
     height: 200,
   },
   title: {
+    color: 'white',
     fontWeight: "bold",
     textAlign: "center",
     fontSize: 18,
@@ -52,6 +53,7 @@ const styles = StyleSheet.create({
     padding: 8,
   },
   detailItem: {
+    color: 'white',
     marginHorizontal: 4,
     fontSize: 12,
   },
