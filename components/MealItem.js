@@ -1,20 +1,39 @@
 import { Image, Pressable, Text, View, StyleSheet } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import MealDetails from "./MealDetails";
 
-const MealItem = ({ title, imageUrl, duration, affordability, complexity }) => {
+const MealItem = ({
+  id,
+  title,
+  imageUrl,
+  duration,
+  affordability,
+  complexity,
+}) => {
+  const navigation = useNavigation();
+
+  const selectMealItemHandler = () => {
+    navigation.navigate("MealDetail", {
+      mealId: id,
+    });
+  };
+
   return (
     <View style={styles.mealItem}>
-      <Pressable android_ripple={{ color: "#ccc" }}>
+      <Pressable
+        android_ripple={{ color: "#ccc" }}
+        onPress={selectMealItemHandler}
+      >
         <View style={styles.innerContainer}>
           <View>
             <Image source={{ uri: imageUrl }} style={styles.image} />
             <Text style={styles.title}>{title}</Text>
           </View>
-
-          <View style={styles.details}>
-            <Text style={styles.detailItem}>{duration}m</Text>
-            <Text style={styles.detailItem}>{affordability.toUpperCase()}</Text>
-            <Text style={styles.detailItem}>{complexity.toUpperCase()}</Text>
-          </View>
+          <MealDetails
+            duration={duration}
+            affordability={affordability}
+            complexity={complexity}
+          />
         </View>
       </Pressable>
     </View>
@@ -31,30 +50,19 @@ const styles = StyleSheet.create({
     backgroundColor: "#ADC4CE",
     elevation: 4,
   },
-  innerContainer:{
+  innerContainer: {
     borderRadius: 8,
-    overflow: 'hidden',
+    overflow: "hidden",
   },
   image: {
     width: "100%",
     height: 200,
   },
   title: {
-    color: 'white',
+    color: "white",
     fontWeight: "bold",
     textAlign: "center",
     fontSize: 18,
     marginTop: 5,
-  },
-  details: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 8,
-  },
-  detailItem: {
-    color: 'white',
-    marginHorizontal: 4,
-    fontSize: 12,
   },
 });
