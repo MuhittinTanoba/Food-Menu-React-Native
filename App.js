@@ -28,19 +28,13 @@ export default function App() {
             component={MealsOverviewScreen}
             // options={({ route, navigation }) => {
             //   const catId = route.params.categoryId;
-            //   return { 
+            //   return {
             //     title: catId
             //   };
             // }}
             // we can use in the component
           />
-          <Stack.Screen name="MealDetail" component={MealDetailScreen} options={{
-            headerRight: () => {
-              return(
-                <Button title='Tap me!'/>
-              )
-            }
-          }} />
+          <Stack.Screen name="MealDetail" component={MealDetailScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </>
