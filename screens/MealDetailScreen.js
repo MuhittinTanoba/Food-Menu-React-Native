@@ -10,29 +10,39 @@ import { MEALS } from "../data/dummy-data";
 import MealDetails from "../components/MealDetails";
 import Subtitle from "../components/MealDetail/Subtitle";
 import List from "../components/MealDetail/List";
-import { useLayoutEffect } from "react";
+import { useContext, useLayoutEffect } from "react";
 import IconButton from "../components/IconButton";
+import { FavoritesContext } from "../store/context/favorites-context";
 
 const MealDetailScreen = ({ route, navigation }) => {
+  const favoriteMealsCtx = useContext(FavoritesContext);
+
   const mealId = route.params.mealId;
   const selectedMeal = MEALS.find((meal) => meal.id === mealId);
 
-  const headerButtonPressHandler = () => {
-    console.log("tapped");
+  const mealIsFavorite = favoriteMealsCtx.ids.includes(mealId);
+
+  const changeFavoriteStatus = () => {
+    if(mealIsFavorite){
+      favoriteMealsCtx.removeFavorite(mealId);
+    } else{
+      favoriteMealsCtx.addFavorite(mealId);
+    }
   };
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => {
         return (
           <IconButton
-            icon={"star"}
+            icon={mealIsFavorite ? "star" : 'star-outline'}
             color={"white"}
-            onPress={headerButtonPressHandler}
+            onPress={changeFavoriteStatus}
           />
         );
       },
     });
-  }, [navigation, headerButtonPressHandler]);
+  }, [navigation, changeFavoriteStatus]);
 
   return (
     <ScrollView>
